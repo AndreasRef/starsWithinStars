@@ -33,8 +33,6 @@ void setup() {
   cp5.addSlider("rotationSpeed", 0.01, 0.1).linebreak();
 }
 
-//To do: Limit centerFreeSpace so it maximum goes to radius1 value *2 - 1
-
 void draw() {
   background(#202020);
 
@@ -43,8 +41,6 @@ void draw() {
 
   pushMatrix();
   translate(width/2, height/2);
-  //rotate(frameCount / 200.0);
-
 
   int internalStars = int(((radius1*2-radius1*2*centerFreeSpace)+1)/(starDecrease*radius1*2))+1;
 
@@ -69,8 +65,6 @@ void star(float x, float y, float radius1, float starDepth, int starEdges, int i
     }
     fill(c);
 
-
-
     beginShape();
     for (float a = 0; a < TWO_PI; a += angle) {
       float sx = x + cos(a) * (1- starDepth)* radius1;
@@ -87,8 +81,5 @@ void star(float x, float y, float radius1, float starDepth, int starEdges, int i
     scale(starScale);
 
     endShape(CLOSE);
-
-    //radius1 -= starOffest;
-    //radius2 -= starOffest;
   }
 }
