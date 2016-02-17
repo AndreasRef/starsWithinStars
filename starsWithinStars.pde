@@ -8,24 +8,29 @@ float starScale = 1;
 
 int starOffest = 40;
 
-  int radius1 = 450;
-  float starDepth = 0.1;
-  float centerFreeSpace = 0;
-  int starEdges = 5;
-  float starDecrease = 0.01;
+int radius1 = 450;
+float starDepth = 0.1;
+float centerFreeSpace = 0;
+int starEdges = 5;
+float starDecrease = 0.01;
+float rotationAmplitude = 5;
+float rotationSpeed = 0.05;
+
 
 void setup() {
-  size(1200, 900);
+  //size(1200, 900);
+  fullScreen();
   noStroke();
-  
+
   cp5 = new ControlP5(this);
-  cp5.addSlider("radius1",0,500).linebreak();
-  cp5.addSlider("centerFreeSpace",0.0,1.0).linebreak();
+  cp5.addSlider("radius1", 0, height/2).linebreak();
+  cp5.addSlider("centerFreeSpace", 0.0, 1.0).linebreak();
   //cp5.addSlider("starOfset",10,400).linebreak();
-  cp5.addSlider("starDecrease",0.01,0.50).linebreak();
-  cp5.addSlider("starDepth",0.01,0.90).linebreak();
-  cp5.addSlider("starEdges",2,16).linebreak();
-  
+  cp5.addSlider("starDecrease", 0.01, 0.50).linebreak();
+  cp5.addSlider("starDepth", 0.01, 0.90).linebreak();
+  cp5.addSlider("starEdges", 2, 16).linebreak();
+  cp5.addSlider("rotationAmplitude", 0, 10).linebreak();
+  cp5.addSlider("rotationSpeed", 0.01, 0.1).linebreak();
 }
 
 //To do: Limit centerFreeSpace so it maximum goes to radius1 value *2 - 1
@@ -33,20 +38,20 @@ void setup() {
 void draw() {
   background(#202020);
 
-  
-  osc = (sin(theta)*5);   
+
+  osc = (sin(theta)*rotationAmplitude);   
 
   pushMatrix();
   translate(width/2, height/2);
   //rotate(frameCount / 200.0);
 
-  
+
   int internalStars = int(((radius1*2-radius1*2*centerFreeSpace)+1)/(starDecrease*radius1*2))+1;
 
   star(0, 0, radius1, starDepth, starEdges, internalStars, starDecrease); 
   popMatrix();
-  
-  theta += 0.05;
+
+  theta += rotationSpeed;
   starScale = 1;
 }
 
@@ -55,17 +60,17 @@ void star(float x, float y, float radius1, float starDepth, int starEdges, int i
   float halfAngle = angle/2.0;
 
   //for (int i = internalStars; i > 0; i--) {
-    for (int i = 0; i < internalStars; i++) {
+  for (int i = 0; i < internalStars; i++) {
     color c;
-      if (i%2 ==0) {
-        c=#FFFFFF;
-      } else {
+    if (i%2 ==0) {
+      c=#FFFFFF;
+    } else {
       c=#000000;
-      }
-   fill(c);
+    }
+    fill(c);
 
-    
-    
+
+
     beginShape();
     for (float a = 0; a < TWO_PI; a += angle) {
       float sx = x + cos(a) * (1- starDepth)* radius1;
@@ -76,16 +81,14 @@ void star(float x, float y, float radius1, float starDepth, int starEdges, int i
       vertex(sx, sy);
     }
 
-   rotate(radians(osc));
-    
-   starScale -= starDecrease;
-   scale(starScale);
-    
+    rotate(radians(osc));
+
+    starScale -= starDecrease;
+    scale(starScale);
+
     endShape(CLOSE);
 
     //radius1 -= starOffest;
     //radius2 -= starOffest;
-        
-    
   }
 }
