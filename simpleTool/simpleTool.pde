@@ -14,7 +14,7 @@ float centerFreeSpace = 0;
 int starEdges = 5;
 float starDecrease = 0.01;
 float rotationAmplitude = 5;
-float rotationSpeed = 0.05;
+int rotationPeriod = 5000;
 
 
 void setup() {
@@ -30,14 +30,13 @@ void setup() {
   cp5.addSlider("starDepth", 0.01, 0.90).linebreak();
   cp5.addSlider("starEdges", 2, 16).linebreak();
   cp5.addSlider("rotationAmplitude", 0, 10).linebreak();
-  cp5.addSlider("rotationSpeed", 0.01, 0.1).linebreak();
+  cp5.addSlider("rotationPeriod", 500, 10000).linebreak();
 }
 
 void draw() {
   background(#202020);
 
-
-  osc = (sin(theta)*rotationAmplitude);   
+  osc = rotationAmplitude*sin(TWO_PI *millis()/rotationPeriod);   
 
   pushMatrix();
   translate(width/2, height/2);
@@ -47,7 +46,6 @@ void draw() {
   star(0, 0, radius1, starDepth, starEdges, internalStars, starDecrease); 
   popMatrix();
 
-  theta += rotationSpeed;
   starScale = 1;
 }
 
