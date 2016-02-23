@@ -6,8 +6,6 @@ float osc;
 
 float starScale = 1;
 
-int starOffest = 40;
-
 int radius1 = 450;
 float starDepth = 0.1;
 float centerFreeSpace = 0;
@@ -25,7 +23,6 @@ void setup() {
   cp5 = new ControlP5(this);
   cp5.addSlider("radius1", 0, height/2).linebreak();
   cp5.addSlider("centerFreeSpace", 0.0, 1.0).linebreak();
-  //cp5.addSlider("starOfset",10,400).linebreak();
   cp5.addSlider("starDecrease", 0.01, 0.50).linebreak();
   cp5.addSlider("starDepth", 0.01, 0.90).linebreak();
   cp5.addSlider("starEdges", 2, 16).linebreak();
